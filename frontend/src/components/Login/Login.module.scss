@@ -1,0 +1,36 @@
+.wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 60% 40%, #1a2040 0%, var(--bg) 70%);
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 44px 40px;
+    width: 360px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 28px;
+}
