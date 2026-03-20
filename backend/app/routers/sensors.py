@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
@@ -27,7 +26,7 @@ def sensors_latest(
             .first()
         )
         result[sid] = {
-            "value": row.value if row else 0,
+            "value": float(row.value) if row else 0,
             "timestamp": row.timestamp.isoformat() if row else None,
         }
     return result
@@ -53,24 +52,27 @@ def sensors_analytics(
             .order_by(SensorReading.timestamp.asc())
             .all()
         )
-        values = [r.value for r in rows]
+        values = [float(r.value) for r in rows]
         analytics[sid] = {
             "avg": round(sum(values) / len(values), 2) if values else 0,
             "min": round(min(values), 2) if values else 0,
             "max": round(max(values), 2) if values else 0,
             "count": len(values),
             "series": [
-                {"time": r.timestamp.strftime("%H:%M"), "value": r.value}
+                {"time": r.timestamp.strftime("%H:%M"), "value": float(r.value)}
                 for r in rows[-50:]
             ],
         }
 
-    # Энергопотребление
-    power_vals = [r.value for r in
-                  db.query(SensorReading)
-                  .filter(SensorReading.device_id == "power-sensor",
-                          SensorReading.timestamp >= since)
-                  .all()]
+    power_vals = [
+        float(r.value) for r in
+        db.query(SensorReading)
+        .filter(
+            SensorReading.device_id == "power-sensor",
+            SensorReading.timestamp >= since,
+        )
+        .all()
+    ]
     interval_h = 5 / 3600
     total_kwh = sum(power_vals) * interval_h / 1000
 

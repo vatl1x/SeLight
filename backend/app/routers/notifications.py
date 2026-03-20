@@ -52,3 +52,15 @@ def read_all(
     db.add(ActionLog(actor=user.username, action="read_all_notifications", details=""))
     db.commit()
     return {"status": "ok"}
+
+
+
+@router.delete("/clear")
+def clear_notifications(
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    db.query(Notification).delete()
+    db.add(ActionLog(actor=user.username, action="clear_notifications", details=""))
+    db.commit()
+    return {"status": "ok"}

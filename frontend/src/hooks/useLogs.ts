@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
+import { LogEntry } from "../interfaces";
 import { api } from "../api";
 
-export interface LogEntry {
-    id: number;
-    actor: string;
-    action: string;
-    details: string;
-    timestamp: string;
-}
 
 export const useLogs = () => {
     const [logs, setLogs] = useState<LogEntry[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     async function load() {
+        setLoading(true);
         try {
-            const data = await api.getLogs();
+            const data = await api.getLogs() as LogEntry[];
             setLogs(data);
         } catch (e) {
             console.error(e);

@@ -59,4 +59,8 @@ def login(
 
 @router.get("/me")
 def me(current_user: User = Depends(get_current_user)):
-    return {"username": current_user.username, "email": current_user.email}
+    return {
+        "username": current_user.username,
+        "email": current_user.email,
+        "role": current_user.role,
+    }
