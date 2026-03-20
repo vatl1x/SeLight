@@ -1,5 +1,5 @@
 import { useLogin } from "../../hooks/useLogin";
-import { LoginForm } from "../../components/LoginForm/LoginForm";
+import { LoginForm } from "./LoginForm/LoginForm";
 import styles from "./Login.module.scss";
 
 interface Props {

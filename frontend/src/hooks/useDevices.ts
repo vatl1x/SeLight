@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
-import { Device } from "../components/DeviceCard/DeviceCard";
+import { Device } from "../interfaces/index";
 
 export const useDevices = () => {
     const [devices, setDevices] = useState<Device[]>([]);
-    const [toggling, setToggling] = useState(null);
+    const [toggling, setToggling] = useState<string | null>(null);
 
-    const load = async() => {
+    const load = async (): Promise<void> => {
         try {
             const d = await api.getDevices();
             setDevices(d);
@@ -19,7 +19,7 @@ export const useDevices = () => {
         load();
     }, []);
 
-    const toggle = async (dev) => {
+    const toggle = async (dev: Device) => {
         setToggling(dev.device_id);
         try {
             await api.patchDevice(dev.device_id, { is_active: !dev.is_active });

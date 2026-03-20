@@ -1,15 +1,14 @@
 import { NAV_ITEMS } from "./Sidebar.constants";
 import { useUnreadCount } from "../../hooks/useUnreadCount";
-import { NavItem } from "../NavItem/NavItem";
+import { NavItem } from "./NavItem/NavItem";
 import styles from "./Sidebar.module.scss";
 
 interface Props {
-    current: string;
-    onNavigate: (id: string) => void;
     onLogout: () => void;
+    role: string | null;
 }
 
-const Sidebar = ({ current, onNavigate, onLogout }: Props) => {
+const Sidebar = ({ onLogout, role }: Props) => {
     const { unreadCount } = useUnreadCount();
 
     return (
@@ -18,24 +17,23 @@ const Sidebar = ({ current, onNavigate, onLogout }: Props) => {
                 <span className={styles.logo}>💡</span>
                 <div>
                     <div className={styles.name}>S.E. Light</div>
-                    <div className={styles.version}>IoT v2.0</div>
                 </div>
             </div>
 
             <nav className={styles.nav}>
-                {NAV_ITEMS.map((item) => (
+                {NAV_ITEMS.filter(
+                    (item) => !item.adminOnly || role === "admin",
+                ).map((item) => (
                     <NavItem
                         key={item.id}
                         id={item.id}
                         icon={item.icon}
                         label={item.label}
-                        isActive={current === item.id}
                         unreadCount={
                             item.id === "notifications"
                                 ? unreadCount
                                 : undefined
                         }
-                        onClick={onNavigate}
                     />
                 ))}
             </nav>

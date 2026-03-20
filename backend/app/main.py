@@ -23,9 +23,9 @@ def seed(db: Session):
         return
 
     db.add_all([
-        User(username="admin",    email="admin@selight.com", password="admin123"),
-        User(username="operator", email="op@selight.com",    password="op123"),
-    ])
+    User(username="admin",    email="admin@selight.com", password="admin123", role="admin"),
+    User(username="operator", email="op@selight.com",    password="op123",    role="operator"),
+])
     db.add_all([
         Device(device_id="lux-sensor",    name="Датчик освещённости",   type="sensor",
                description="Уровень внешней освещённости",

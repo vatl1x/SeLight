@@ -11,6 +11,7 @@ class User(Base):
     email = Column(String)
     password = Column(String)          # plain-text for demo
     is_active = Column(Boolean, default=True)
+    role = Column(String, default="operator")
 
 
 class Device(Base):

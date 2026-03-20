@@ -1,49 +1,19 @@
-import { useState, useEffect } from 'react'
-import Login from './components/Login/Login'
-import Sidebar from './components/Sidebar'
-import Dashboard from './components/Dashboard/Dashboard'
-import LightControl from './components/LightControl'
-import Notifications from './components/Notifications'
-import DeviceList from './components/DeviceList/DeviceList'
-import Logs from './components/Logs/Logs'
-import './App.css'
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login/Login";
+import { AppLayout } from "./components/AppLayout/AppLayout";
+import "./App.css";
+import { useAuth } from "./hooks/useAuth";
 
 export default function App() {
-  const [token, setToken] = useState(() => localStorage.getItem('token'))
-  const [page, setPage] = useState('dashboard')
+    const { token, user, login, logout } = useAuth();
 
-  function handleLogin(newToken) {
-    localStorage.setItem('token', newToken)
-    setToken(newToken)
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('token')
-    setToken(null)
-  }
-
-  if (!token) {
-    return <Login onLogin={handleLogin} />
-  }
-
-  const pages = {
-    dashboard:    <Dashboard />,
-    control:      <LightControl />,
-    notifications:<Notifications />,
-    devices:      <DeviceList />,
-    logs:         <Logs />,
-  }
-
-  return (
-    <div className="app-layout">
-      <Sidebar
-        current={page}
-        onNavigate={setPage}
-        onLogout={handleLogout}
-      />
-      <main className="app-main">
-        {pages[page] ?? <Dashboard />}
-      </main>
-    </div>
-  )
+    if (!token) {
+        return <Login onLogin={login} />;
+    }
+    return (
+        <BrowserRouter>
+            <AppLayout onLogout={logout} user={user} />
+        </BrowserRouter>
+    );
 }
