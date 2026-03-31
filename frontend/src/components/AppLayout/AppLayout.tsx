@@ -16,7 +16,7 @@ interface Props {
 
 export const AppLayout = ({ onLogout, user }: Props) => (
     <div className={styles.layout}>
-        <Sidebar onLogout={onLogout} role={user?.role ?? null}/>
+        <Sidebar onLogout={onLogout} role={user?.role ?? null} />
         <main className={styles.main}>
             <Routes>
                 <Route
@@ -25,10 +25,7 @@ export const AppLayout = ({ onLogout, user }: Props) => (
                 />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/control" element={<LightControl user={user} />} />
-                <Route
-                    path="/notifications"
-                    element={<Notifications />}
-                />
+                <Route path="/notifications" element={<Notifications />} />
                 <Route path="/devices" element={<DeviceList user={user} />} />
                 <Route path="/logs" element={<Logs />} />
             </Routes>

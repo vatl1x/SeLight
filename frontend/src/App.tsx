@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Login from "./components/Login/Login";
 import { AppLayout } from "./components/AppLayout/AppLayout";
 import "./App.css";
