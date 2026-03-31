@@ -28,8 +28,6 @@ class AlarmCommand(BaseModel):
     armed: bool
 
 
-# ── Эндпоинты ────────────────────────────────────────────────────────────────
-
 @router.get("/status")
 def actuators_status(_: User = Depends(get_current_user)):
     """Текущее состояние всех актуаторов (из памяти эмулятора)."""

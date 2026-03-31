@@ -1,7 +1,3 @@
-"""
-S.E. Light — главный модуль приложения.
-Только инициализация БД, seed-данные и подключение роутеров.
-"""
 from datetime import datetime
 
 from fastapi import FastAPI

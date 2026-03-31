@@ -3,7 +3,7 @@ import { api } from "../api";
 
 export const useUnreadCount = () => {
     const [unreadCount, setUnreadCount] = useState(0);
-
+// useUnreadCount.ts — поллинг счётчика в боковом меню
     useEffect(() => {
         const fetchCount = () =>
             api
